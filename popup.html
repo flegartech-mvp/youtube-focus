@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Focus Mode</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="popup-shell">
+    <section class="panel" aria-label="Focus Mode controls">
+      <div class="panel-top">
+        <div class="panel-copy">
+          <p class="eyebrow">YouTube</p>
+          <h1 class="title">Focus Mode</h1>
+          <p class="subtitle">Remove distractions from YouTube</p>
+        </div>
+
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme" aria-pressed="false">
+          <span class="theme-toggle-icon" aria-hidden="true"></span>
+          <span class="theme-toggle-label" id="theme-toggle-label">Dark</span>
+        </button>
+      </div>
+
+      <button
+        id="focus-toggle"
+        class="switch"
+        type="button"
+        role="switch"
+        aria-checked="false"
+        aria-label="Toggle Focus Mode"
+      >
+        <span class="switch-track">
+          <span class="switch-copy switch-copy-off">Off</span>
+          <span class="switch-copy switch-copy-on">On</span>
+          <span class="switch-handle"></span>
+        </span>
+      </button>
+
+      <p class="status" id="focus-status" aria-live="polite">YouTube restored</p>
+      <p class="lock-indicator" id="lock-indicator" aria-live="polite" hidden>Soft lock: 25 min remaining</p>
+      <p class="error-banner" id="popup-error" role="alert" hidden>Could not load saved settings. Try closing and reopening the popup.</p>
+
+      <section class="lock-panel" aria-label="Timed Lock">
+        <div class="section-head">
+          <h2 class="section-title">Timed Lock</h2>
+          <p class="section-copy">Keep Focus Mode on for a set time. This is a soft commitment, not a security lock.</p>
+        </div>
+
+        <div class="timer-grid" id="timer-grid" role="radiogroup" aria-label="Lock duration">
+          <button class="timer-chip is-selected" type="button" data-duration="25" role="radio" aria-checked="true">25m</button>
+          <button class="timer-chip" type="button" data-duration="50" role="radio" aria-checked="false">50m</button>
+          <button class="timer-chip" type="button" data-duration="90" role="radio" aria-checked="false">90m</button>
+          <button class="timer-chip" type="button" data-duration="custom" role="radio" aria-checked="false">Custom</button>
+        </div>
+
+        <label class="custom-input" id="custom-wrap" hidden>
+          <span class="custom-label">Minutes</span>
+          <input
+            id="custom-duration"
+            type="number"
+            min="1"
+            max="480"
+            step="1"
+            value="25"
+            inputmode="numeric"
+            aria-describedby="custom-duration-help"
+          >
+          <span class="field-help" id="custom-duration-help">Choose 1 to 480 minutes.</span>
+        </label>
+
+        <button id="lock-button" class="lock-button" type="button">Start lock</button>
+      </section>
+
+      <button id="donate-button" class="donate-button" type="button">Support the creator</button>
+    </section>
+  </main>
+
+  <script src="storage.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Build output / release zip
+release/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Test artifacts
+test-results/
+playwright-report/
+output/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
