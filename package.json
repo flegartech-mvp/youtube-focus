@@ -8,6 +8,7 @@
     "test": "node tests/storage.test.js",
     "test:ui": "powershell -ExecutionPolicy Bypass -File scripts/run-playwright-ui.ps1",
     "validate": "npm run check && npm test",
-    "build": "powershell -ExecutionPolicy Bypass -File scripts/build-release.ps1"
+    "build": "node scripts/build-release.mjs",
+    "build:win": "powershell -ExecutionPolicy Bypass -File scripts/build-release.ps1"
   }
 }
