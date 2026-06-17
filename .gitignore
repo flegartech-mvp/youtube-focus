@@ -21,3 +21,19 @@ Thumbs.db
 # IDE
 .vscode/settings.json
 .idea/
+
+# --- repo cleanup hygiene (added) ---
+dist/
+build/
+out/
+.next/
+.turbo/
+.vite/
+.cache/
+coverage/
+tmp/
+*.log
+*.swp
+*.bak
+*.orig
+promo/
