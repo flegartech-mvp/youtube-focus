@@ -38,7 +38,6 @@
   let theme = FocusModeStorage.DEFAULT_THEME;
   let lastPath = location.pathname;
   let applyTimer = 0;
-  let bodyReadyQueued = false;
 
   initialize();
 
@@ -201,8 +200,8 @@
   }
 
   function ensurePlaceholder() {
-    if (!document.body) {
-      queueBodyReadyApply();
+    const mount = document.documentElement;
+    if (!mount) {
       return null;
     }
 
@@ -250,29 +249,10 @@
         </div>
       `;
       bindPlaceholderActions(placeholder);
-      document.body.appendChild(placeholder);
+      mount.appendChild(placeholder);
     }
 
     return placeholder;
-  }
-
-  function queueBodyReadyApply() {
-    if (bodyReadyQueued) {
-      return;
-    }
-
-    bodyReadyQueued = true;
-    const schedule = () => {
-      bodyReadyQueued = false;
-      queueApply();
-    };
-
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", schedule, { once: true });
-      return;
-    }
-
-    window.setTimeout(schedule, 0);
   }
 
   function bindPlaceholderActions(placeholder) {
@@ -387,7 +367,20 @@
 
       #${PLACEHOLDER_ID} {
         position: fixed;
-        inset: 0;
+        /* Pin to the viewport with viewport units so the overlay can never
+           collapse to a narrow strip if a host ancestor (transform/filter/
+           contain/will-change) becomes the containing block for position:fixed.
+           Do NOT use inset/right/bottom here: combined with width/height:100vw/vh
+           they over-constrain and the browser honors a narrow containing block. */
+        top: 0;
+        left: 0;
+        right: auto;
+        bottom: auto;
+        width: 100vw;
+        height: 100vh;
+        max-width: 100vw;
+        max-height: 100vh;
+        margin: 0;
         z-index: 2147483647;
         display: none;
         pointer-events: auto;
@@ -550,12 +543,12 @@
         height: 100vh;
         padding: 112px 32px 32px;
         background:
-          radial-gradient(circle at top, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.78) 38%, rgba(242, 242, 239, 0.96) 100%);
+          radial-gradient(circle at top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.985) 38%, rgba(242, 242, 239, 1) 100%);
       }
 
       html[data-yt-focus-theme="dark"] .yt-focus-screen {
         background:
-          radial-gradient(circle at top, rgba(42, 42, 42, 0.94), rgba(18, 18, 18, 0.92) 44%, rgba(10, 10, 10, 0.98) 100%);
+          radial-gradient(circle at top, rgba(42, 42, 42, 1), rgba(18, 18, 18, 1) 44%, rgba(10, 10, 10, 1) 100%);
       }
 
       .yt-focus-aura,
