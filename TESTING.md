@@ -6,14 +6,14 @@ Run automated checks before packaging:
 npm run validate
 ```
 
-Run popup UI checks with Playwright:
+Run popup and content-script browser checks with Playwright:
 
-```powershell
+```bash
 npx playwright install chromium
 npm run test:ui
 ```
 
-The Playwright check opens `popup.html` with mocked Chrome extension APIs, drives the main popup controls, checks for browser console/page errors, and writes screenshots to `output/playwright/`.
+The Playwright checks open `popup.html`, `privacy.html`, and YouTube-shaped fixtures with mocked Chrome extension APIs, drive the main popup/content-script controls, check for browser console/page errors, and write screenshots to `output/playwright/`.
 
 Run a release build:
 

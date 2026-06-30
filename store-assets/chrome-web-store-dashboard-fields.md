@@ -1,6 +1,6 @@
 # Chrome Web Store Dashboard Fields
 
-Use `release/youtube-focus-mode-v3.0.1.zip` for the package upload.
+Use `release/youtube-focus-mode-v3.0.2.zip` for the package upload.
 
 The package is already uploaded in the Chrome Web Store Developer Dashboard for:
 

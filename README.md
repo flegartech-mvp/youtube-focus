@@ -30,15 +30,21 @@ YouTube changes its internal markup frequently. This extension uses a mix of sta
 
 This project has no runtime dependencies.
 
-```powershell
+```bash
 npm run validate
 ```
 
-The validation command checks JavaScript syntax and runs the storage tests.
+The validation command checks JavaScript syntax, runs ESLint, runs storage tests, and verifies focus-overlay geometry with Playwright.
+
+Run popup and content-script browser smoke tests with:
+
+```bash
+npm run test:ui
+```
 
 ## Release Build
 
-```powershell
+```bash
 npm run build
 ```
 

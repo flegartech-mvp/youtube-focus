@@ -11,10 +11,10 @@
     "spfdone",
     "popstate"
   ];
-  const BLOCKED_ROUTES = new Set([
-    "/"
+  const ALLOWED_ROUTES = new Set([
+    "/results",
+    "/watch"
   ]);
-  const BLOCKED_PREFIXES = ["/feed/", "/shorts"];
   const SHORTS_LINK_SELECTOR = 'a[href^="/shorts"], a[href*="/shorts/"]';
   const GUIDE_LINK_SELECTOR = 'a[href^="/feed/"], a[href^="/shorts"]';
   const NOTIFICATION_PANEL_SELECTOR = "tp-yt-iron-dropdown, ytd-multi-page-menu-renderer";
@@ -47,13 +47,20 @@
     bindStorage();
     observeDom();
 
-    const [nextState, nextTheme] = await Promise.all([
-      FocusModeStorage.getState(),
-      FocusModeStorage.getTheme()
-    ]);
+    try {
+      const [nextState, nextTheme] = await Promise.all([
+        FocusModeStorage.getState(),
+        FocusModeStorage.getTheme()
+      ]);
 
-    state = nextState;
-    theme = nextTheme;
+      state = nextState;
+      theme = nextTheme;
+    } catch (error) {
+      console.error("Focus Mode could not load saved settings.", error);
+      state = FocusModeStorage.normalizeState(state);
+      theme = FocusModeStorage.normalizeTheme(theme);
+    }
+
     queueApply();
   }
 
@@ -190,8 +197,7 @@
 
   function getRouteState() {
     const path = location.pathname;
-    const blocked = BLOCKED_ROUTES.has(path)
-      || BLOCKED_PREFIXES.some((prefix) => path.startsWith(prefix));
+    const blocked = !ALLOWED_ROUTES.has(path);
 
     return {
       blocked,

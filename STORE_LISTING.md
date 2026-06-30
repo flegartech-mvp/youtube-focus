@@ -9,13 +9,13 @@ Canonical listing copy and dashboard field mapping live in:
 | Field | Value |
 |-------|-------|
 | Name | YouTube Focus Mode |
-| Version | 3.0.1 (from `manifest.json`) |
+| Version | 3.0.2 (from `manifest.json`) |
 | Category | Productivity |
 | Single purpose | Strip YouTube to search + video with optional timed focus sessions |
 | Permissions | `storage`, host `https://www.youtube.com/*` — see [PERMISSIONS_JUSTIFICATION.md](PERMISSIONS_JUSTIFICATION.md) |
 | Privacy policy | [PRIVACY.md](PRIVACY.md) / `privacy.html` (no data collection) |
 | Data use | None collected/transmitted; only local preference flags |
-| Package | `release/youtube-focus-mode-v3.0.1.zip` (`npm run build`) |
+| Package | `release/youtube-focus-mode-v3.0.2.zip` (`npm run build`) |
 
 ## Pre-submission checklist
 - [x] MV3 manifest, minimal permissions

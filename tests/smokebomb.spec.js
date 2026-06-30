@@ -238,6 +238,33 @@ test("smoke: blocked YouTube home route shows focused search experience", async 
   expect(browserErrors).toEqual([]);
 });
 
+test("smoke: non-search YouTube routes are blocked while Focus Mode is enabled", async ({ page }) => {
+  const browserErrors = installConsoleCapture(page);
+
+  await page.setViewportSize(VIEWPORTS[2]);
+  await openYoutubeFixture(
+    page,
+    "https://www.youtube.com/@example",
+    `
+      <ytd-masthead>masthead</ytd-masthead>
+      <ytd-page-manager>channel page</ytd-page-manager>
+    `,
+    {
+      focusModeState: { focusEnabled: true, lockEnabled: false, lockEndTime: null },
+      focusModeTheme: "light"
+    }
+  );
+
+  await expect(page.locator("#yt-focus-mode-placeholder")).toBeVisible();
+  await expect(page.locator("ytd-page-manager")).toBeHidden();
+
+  await page.getByRole("searchbox", { name: "Search YouTube" }).fill("deep work music");
+  await page.getByRole("button", { name: "Search", exact: true }).click();
+  await expect(page).toHaveURL(/\/results\?search_query=deep\+work\+music/);
+
+  expect(browserErrors).toEqual([]);
+});
+
 test("smoke: YouTube watch route hides distractions and restores after storage update", async ({ page }) => {
   const browserErrors = installConsoleCapture(page);
 

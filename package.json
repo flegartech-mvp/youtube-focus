@@ -5,14 +5,18 @@
   "description": "A Chrome extension that hides distracting YouTube surfaces for intentional watching.",
   "scripts": {
     "check": "node --check storage.js && node --check popup.js && node --check content.js",
+    "lint": "eslint .",
     "test": "node tests/storage.test.js",
     "test:visual": "node tests/overlay-geometry.test.mjs",
-    "test:ui": "powershell -ExecutionPolicy Bypass -File scripts/run-playwright-ui.ps1",
-    "validate": "npm run check && npm test",
+    "test:ui": "playwright test tests/popup-ui.spec.js tests/smokebomb.spec.js",
+    "validate": "npm run check && npm run lint && npm test && npm run test:visual",
     "build": "node scripts/build-release.mjs",
     "build:win": "powershell -ExecutionPolicy Bypass -File scripts/build-release.ps1"
   },
   "devDependencies": {
-    "playwright": "^1.49.0"
+    "@eslint/js": "^9.39.2",
+    "@playwright/test": "^1.61.0",
+    "eslint": "^9.39.2",
+    "playwright": "^1.61.0"
   }
 }

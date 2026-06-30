@@ -18,7 +18,7 @@
  *      pins to the viewport and does NOT collapse. This is the direct guard
  *      against the reported strip.
  */
-import { chromium } from 'playwright';
+import { chromium } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -47,7 +47,7 @@ function check(name, cond, detail) {
   else { console.log(`  FAIL  ${name} -> ${detail}`); failures.push(name); }
 }
 
-const browser = await chromium.launch({ channel: 'chrome', headless: true });
+const browser = await chromium.launch({ headless: true });
 const context = await browser.newContext({ viewport: VIEWPORT });
 await context.route(`${ORIGIN}/**`, (route) =>
   route.fulfill({ status: 200, contentType: 'text/html', body: FIXTURE })

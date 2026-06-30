@@ -332,10 +332,16 @@ function startCountdown() {
       return;
     }
 
-    state = await FocusModeStorage.updateState({
-      lockEnabled: false,
-      lockEndTime: null
-    });
+    try {
+      state = await FocusModeStorage.updateState({
+        lockEnabled: false,
+        lockEndTime: null
+      });
+      hasStorageError = false;
+    } catch (error) {
+      hasStorageError = true;
+      console.error("Focus Mode popup could not clear the expired soft lock.", error);
+    }
 
     render();
   }, 1000);
